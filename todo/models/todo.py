@@ -11,3 +11,6 @@ class Todo(models.Model):
 
     def is_completed(self):
         return self.completed is True
+
+    def complete(self):
+        self.completed = True
