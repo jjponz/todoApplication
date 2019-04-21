@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 from rest_framework.decorators import action
 
-from todo.models import Todo
-from .serializers import TodoSerializer
+from todo.models import Todo, Project
+from .serializers import TodoSerializer, ProjectSerializer
 
 
 class TodoViewSet(viewsets.ModelViewSet):
@@ -35,3 +35,8 @@ class TodoViewSet(viewsets.ModelViewSet):
         todo.complete()
         todo.save()
         return todo
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
