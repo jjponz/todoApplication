@@ -13,7 +13,7 @@ client = Client()
 
 class AddTodoTest(TestCase):
     def test_add_todo(self):
-        todo = Todo(description="Do the webpage")
+        todo = self.__build_todo()
         todo_serializer = TodoSerializer(todo)
 
         response = client.post(reverse('todo_management'),
@@ -23,7 +23,7 @@ class AddTodoTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_add_todo_with_creational_date(self):
-        todo = Todo(description="Do the webpage")
+        todo = self.__build_todo()
         todo_serializer = TodoSerializer(todo)
 
         response = client.post(reverse('todo_management'),
@@ -32,6 +32,9 @@ class AddTodoTest(TestCase):
 
         created_todo = Todo(**response.data)
         self.assertEqual(self.__today(), created_todo.creation_date)
+
+    def __build_todo(self):
+        return Todo(description="Do the webpage")
 
     def __today(self):
         return datetime.today().date().strftime('%Y-%m-%d')
