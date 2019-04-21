@@ -34,5 +34,6 @@ class CompleteTodoTest(TestCase):
         return result
 
     def __assertTodoIsComplete(self, todo):
-        completed_todo = Todo(**todo)
-        self.assertTrue(completed_todo.is_completed())
+        todo_serializer = TodoSerializer(todo)
+        todo = Todo.objects.get(pk=todo_serializer.data['id'])
+        self.assertTrue(todo.is_completed())

@@ -25,10 +25,6 @@ class TodoViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def __complete_todos(self, serialized_todos):
-        serializer = self.get_serializer(data=serialized_todos,
-                                         many=isinstance(
-                                             serialized_todos, list))
-        serializer.is_valid(raise_exception=True)
         result = []
         for serialized_todo in serialized_todos:
             result.append(self.__complete_todo(serialized_todo))
