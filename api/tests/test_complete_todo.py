@@ -21,8 +21,7 @@ class CompleteTodoTest(TestCase):
                                content_type='application/json')
 
         for todo in response.data:
-            completed_todo = Todo(**todo)
-            self.assertTrue(completed_todo.is_completed())
+            self.__assertTodoIsComplete(todo)
 
     def __build_todos(self):
         result = Todo.objects.bulk_create(
@@ -33,3 +32,7 @@ class CompleteTodoTest(TestCase):
             todo.save()
 
         return result
+
+    def __assertTodoIsComplete(self, todo):
+        completed_todo = Todo(**todo)
+        self.assertTrue(completed_todo.is_completed())
